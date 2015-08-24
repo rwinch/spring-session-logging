@@ -1,0 +1,68 @@
+This is a playground for logging with Spring Session.
+
+= How it Works
+
+We use Logback's http://logback.qos.ch/manual/filters.html#TurboFilter[TurboFilter] to turn on and off logging based on a value in MDC.
+See the link:src/main/resources/logback.xml[logback.xml] for how this is configured.
+
+= Trying the Example
+
+To try it out:
+
+.Authenticate with a username and password
+[source,bash]
+----
+$ curl -v -u user:password localhost:8080
+...
+< x-auth-token: 4844cc17-2c14-4575-8796-22f165d4fa69
+...
+----
+
+.Make a request with the session
+[source,bash]
+----
+$ curl -H "x-auth-token: 4844cc17-2c14-4575-8796-22f165d4fa69" localhost:8080
+----
+
+NOTE: There is no logging in the console
+
+
+.Enable Logging for this Session
+[source,bash]
+----
+$ curl -H "x-auth-token: 4844cc17-2c14-4575-8796-22f165d4fa69" localhost:8080/logging?enabled=true
+----
+
+NOTE: After logging gets enabled, you will see some logs
+
+.Make a second request with the session
+[source,bash]
+----
+$ curl -H "x-auth-token: 4844cc17-2c14-4575-8796-22f165d4fa69" localhost:8080
+----
+
+NOTE: All the logs show up
+
+.Authenticate with a new username and password
+[source,bash]
+----
+$ curl -v -u user:password localhost:8080
+...
+< x-auth-token: fed5b224-1d9c-41f1-8200-2a7437fc712b
+...
+----
+
+.Make a request with the new session
+[source,bash]
+----
+$ curl -H "x-auth-token: fed5b224-1d9c-41f1-8200-2a7437fc712b" localhost:8080
+----
+
+NOTE: There is no logging for this session
+
+= TBD
+
+* Add admin UI for changing logging by external username
+* Support changing log levels for specific loggers
+* Add spring-cloud-sleuth and populate Span with hashed version of session id to allow tracing the user's session
+* Add a microservice and make a call in the main app

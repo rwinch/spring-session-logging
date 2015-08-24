@@ -1,0 +1,16 @@
+<configuration>
+   <appender name="STDOUT"
+             class="ch.qos.logback.core.ConsoleAppender">
+     <layout class="ch.qos.logback.classic.PatternLayout">
+       <Pattern>TEST %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+     </layout>
+   </appender>
+
+   <turboFilter class="demo.MDCTurboFilter"/>
+
+   <logger name="sample" level="TRACE"/>
+
+   <root level="ERROR" >
+     <appender-ref ref="STDOUT" />
+   </root>
+ </configuration>
