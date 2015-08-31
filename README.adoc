@@ -66,3 +66,4 @@ NOTE: There is no logging for this session
 * Support changing log levels for specific loggers
 * Add spring-cloud-sleuth and populate Span with hashed version of session id to allow tracing the user's session
 * Add a microservice and make a call in the main app
+* Support enabling logging only for a specific app
